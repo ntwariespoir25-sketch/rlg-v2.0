@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAdmin } from '../contexts/AdminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import '../styles/adminTheme.css';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAdmin();
@@ -10,18 +11,9 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        gap: '20px',
-        background: 'linear-gradient(135deg, #0a2a1a 0%, #14532d 100%)',
-        color: 'white'
-      }}>
-        <FontAwesomeIcon icon={faSpinner} spin size="3x" />
-        <p>Loading admin panel...</p>
+      <div className="admin-boot">
+        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+        <p>Loading admin panel…</p>
       </div>
     );
   }

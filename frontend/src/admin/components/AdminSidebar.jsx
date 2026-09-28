@@ -96,13 +96,7 @@ const AdminSidebar = ({ isOpen, isMobile, isCollapsed, onToggleCollapse, onMobil
       />
 
       <aside
-        className={[
-          'admin-sidebar',
-          isCollapsed && !isMobile ? 'collapsed' : '',
-          isOpen ? 'open' : '',
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        className={`admin-sidebar${isOpen ? ' open' : ''}`}
       >
         <div className="admin-sidebar-brand">
           <img src={logo} alt="RLG" className="admin-sidebar-logo" />

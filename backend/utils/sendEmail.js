@@ -44,7 +44,7 @@ const sendWelcomeEmail = async (email, name) => {
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #22c55e;">Welcome to RLG, ${name}!</h2>
-      <p>Thank you for joining the Rising Leaders of Generation community.</p>
+      <p>Thank you for joining the Raising Leaders of Generation community.</p>
       <p>We're excited to have you on board. Together, we'll build the next generation of leaders.</p>
       <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}" style="background: #22c55e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Visit our website</a>
       <p style="margin-top: 20px;">Best regards,<br>RLG Team</p>

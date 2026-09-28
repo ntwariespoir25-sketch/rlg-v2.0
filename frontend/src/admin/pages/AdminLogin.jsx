@@ -142,7 +142,7 @@ const AdminLogin = () => {
               <img src={logo} alt="RLG Logo" className="admin-login-logo" />
             </div>
             <h2>Admin Sign In</h2>
-            <p>Rising Leaders of Generation</p>
+            <p>Raising Leaders of Generation</p>
           </div>
 
           <form onSubmit={handleSubmit} className="admin-login-form">

@@ -118,6 +118,7 @@
 
 /* Brand ------------------------------------------------------------ */
 .admin-sidebar-brand {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -125,7 +126,7 @@
   padding: 0 20px;
   flex: 0 0 auto;
   border-bottom: 1px solid var(--admin-line-2);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .admin-sidebar-logo {
@@ -294,8 +295,20 @@
   box-shadow: inset 3px 0 0 var(--admin-primary);
 }
 
+/* Collapsed: the toggle must stay reachable, so it becomes a tab
+   straddling the sidebar's right edge with the chevron flipped. */
 .admin-shell.sidebar-collapsed .admin-collapse-btn {
-  display: none;
+  position: absolute;
+  top: 50%;
+  right: -13px;
+  margin-left: 0;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.14);
+  border-radius: 0 6px 6px 0;
+}
+
+.admin-shell.sidebar-collapsed .admin-collapse-btn svg {
+  transform: rotate(180deg);
 }
 
 /* Mobile drawer ------------------------------------------------------ */
@@ -1040,6 +1053,24 @@
 }
 
 /* ---- Empty / loading ---- */
+.admin-boot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--admin-primary-700) 0%, var(--admin-ink) 100%);
+  color: #fff;
+  font-family: var(--admin-font);
+}
+
+.admin-boot p {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.9;
+}
 .admin-empty {
   padding: 40px 20px;
   text-align: center;

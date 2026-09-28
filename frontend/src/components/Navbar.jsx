@@ -409,9 +409,9 @@ const Navbar = () => {
           {/* Logo — single line, serif */}
           <Link to="/" className="pf-nav__logo" onClick={() => setIsOpen(false)}>
             <span className="logo-icon">
-              <img src={logo} alt="Rising Leaders Of Generation logo" />
+              <img src={logo} alt="Raising Leaders Of Generation logo" />
             </span>
-            Rising Leaders Of Generation
+            Raising Leaders Of Generation
           </Link>
 
           {/* Center/right links */}
@@ -454,9 +454,9 @@ const Navbar = () => {
       <aside className={`pf-drawer ${isOpen ? "open" : ""}`}>
         <div className="pf-drawer__head">
           <span className="logo-icon">
-            <img src={logo} alt="Rising Leaders Of Generation logo" />
+            <img src={logo} alt="Raising Leaders Of Generation logo" />
           </span>
-          <b>Rising Leaders Of Generation</b>
+          <b>Raising Leaders Of Generation</b>
           <button
             className="pf-drawer__close"
             onClick={() => setIsOpen(false)}

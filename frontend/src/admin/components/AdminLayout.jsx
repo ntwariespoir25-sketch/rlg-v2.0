@@ -89,7 +89,6 @@ const AdminLayout = () => {
           admin={admin}
           onMenuClick={toggleDrawer}
           onLogout={handleLogout}
-          isMobile={isMobile}
         />
 
         <main className="admin-content">
