@@ -141,21 +141,6 @@ label {
   color: #111827;
 }
 
-/* ---------- Stat card (legacy - used by admin dashboard) ---------- */
-.stat-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
-  padding: 1.4rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.stat-card:hover {
-  border-color: #22c55e;
-  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
-  transform: translateY(-2px);
-}
-
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar {
   width: 10px;

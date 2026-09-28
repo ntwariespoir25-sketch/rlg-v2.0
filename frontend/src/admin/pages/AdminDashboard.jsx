@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAdmin } from '../contexts/AdminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faUsers, faBlog, faDollarSign, faEnvelope, faCalendar,
-  faEye, faHeart, faUserPlus, faSpinner, faImage,
-  faGraduationCap, faComments, faChartLine, faArrowUp,
-  faCheckCircle, faTimesCircle, faClock
+  faBlog, faDollarSign, faEnvelope, faCalendar,
+  faSpinner, faImage, faGraduationCap, faComments, faArrowUp, faClock
 } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
@@ -96,7 +94,7 @@ const AdminDashboard = () => {
         icon: 'error',
         title: 'Error',
         text: 'Failed to load dashboard data. Please refresh the page.',
-        confirmButtonColor: '#22c55e',
+        confirmButtonColor: '#0f5132',
       });
     } finally {
       setLoading(false);
@@ -104,347 +102,160 @@ const AdminDashboard = () => {
   };
 
   const statCards = [
-    { title: 'Total Blogs', value: stats?.totalBlogs || 0, icon: faBlog, color: '#3b82f6', change: '+12%', link: '/admin/blogs' },
-    { title: 'Programs', value: stats?.totalPrograms || 0, icon: faGraduationCap, color: '#22c55e', change: '+5%', link: '/admin/programs' },
-    { title: 'Gallery Items', value: stats?.totalGallery || 0, icon: faImage, color: '#f59e0b', change: '+8%', link: '/admin/gallery' },
-    { title: 'Events', value: stats?.totalEvents || 0, icon: faCalendar, color: '#8b5cf6', change: '+3%', link: '/admin/events' },
-    { title: 'Donations', value: `$${stats?.totalDonations?.toLocaleString() || 0}`, icon: faDollarSign, color: '#10b981', change: '+23%', link: '/admin/donations' },
-    { title: 'Pending Contacts', value: stats?.pendingContacts || 0, icon: faEnvelope, color: '#ef4444', change: '-2%', link: '/admin/contacts' },
-    { title: 'Testimonials', value: stats?.totalTestimonials || 0, icon: faComments, color: '#06b6d4', change: '+15%', link: '/admin/testimonials' },
+    { title: 'Total blogs', value: stats?.totalBlogs || 0, icon: faBlog, color: '#2563eb', change: '+12%', link: '/admin/blogs' },
+    { title: 'Programs', value: stats?.totalPrograms || 0, icon: faGraduationCap, color: '#0f5132', change: '+5%', link: '/admin/programs' },
+    { title: 'Gallery items', value: stats?.totalGallery || 0, icon: faImage, color: '#b45309', change: '+8%', link: '/admin/gallery' },
+    { title: 'Events', value: stats?.totalEvents || 0, icon: faCalendar, color: '#6d28d9', change: '+3%', link: '/admin/events' },
+    { title: 'Donations', value: `$${(stats?.totalDonations ?? 0).toLocaleString()}`, icon: faDollarSign, color: '#047857', change: '+23%', link: '/admin/donations' },
+    { title: 'Pending contacts', value: stats?.pendingContacts || 0, icon: faEnvelope, color: '#b91c1c', change: '-2%', link: '/admin/contacts' },
+    { title: 'Testimonials', value: stats?.totalTestimonials || 0, icon: faComments, color: '#0e7490', change: '+15%', link: '/admin/testimonials' },
   ];
 
   if (loading) {
     return (
-      <div className="dashboard-loading">
-        <FontAwesomeIcon icon={faSpinner} spin size="3x" />
-        <p>Loading dashboard...</p>
+      <div className="admin-loading">
+        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+        <p>Loading dashboard…</p>
       </div>
     );
   }
 
   return (
-    <div className="admin-dashboard">
-      <div className="dashboard-header">
+    <div>
+      <div className="admin-page-head">
         <div>
-          <h1>Welcome back, {admin?.name}!</h1>
-          <p>Here's what's happening with RLG today.</p>
+          <h1 className="admin-page-title">Welcome back, {admin?.name}!</h1>
+          <p className="admin-page-sub">Here&apos;s what&apos;s happening with RLG today.</p>
         </div>
-        <div className="dashboard-date">
+        <div className="admin-page-meta">
           <FontAwesomeIcon icon={faClock} />
-          <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <span>
+            {new Date().toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </span>
         </div>
       </div>
 
-      <div className="stats-grid">
-        {statCards.map((stat, index) => (
-          <div key={index} className="stat-card" onClick={() => window.location.href = stat.link}>
-            <div className="stat-icon" style={{ background: `${stat.color}15`, color: stat.color }}>
+      {/* 4 per row on desktop, 2 on tablet, 1 on mobile */}
+      <div className="admin-stat-grid">
+        {statCards.map((stat) => (
+          <div
+            key={stat.title}
+            className="admin-stat-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => window.location.href = stat.link}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.href = stat.link;
+              }
+            }}
+          >
+            <div
+              className="admin-stat-icon"
+              style={{ background: `${stat.color}15`, color: stat.color }}
+            >
               <FontAwesomeIcon icon={stat.icon} />
             </div>
-            <div className="stat-info">
-              <h3>{stat.value}</h3>
-              <p>{stat.title}</p>
-              {stat.change && <span className={`stat-change ${stat.change.startsWith('+') ? 'positive' : 'negative'}`}>{stat.change}</span>}
+
+            <div className="admin-stat-value">{stat.value}</div>
+
+            <div className="admin-stat-label">
+              <span className="admin-stat-name">{stat.title}</span>
+              {stat.change && (
+                <span
+                  className={`admin-stat-delta ${
+                    stat.change.startsWith('+') ? 'positive' : 'negative'
+                  }`}
+                >
+                  {stat.change}
+                </span>
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="dashboard-grid">
-        <div className="dashboard-card recent-activity">
-          <h3>Recent Activity</h3>
-          <div className="activity-list">
-            {recentActivities.map((activity, i) => (
-              <div key={i} className="activity-item">
-                <div className={`activity-icon ${activity.type}`}>
-                  {activity.type === 'blog' && <FontAwesomeIcon icon={faBlog} />}
-                  {activity.type === 'contact' && <FontAwesomeIcon icon={faEnvelope} />}
-                  {activity.type === 'donation' && <FontAwesomeIcon icon={faDollarSign} />}
-                </div>
-                <div className="activity-details">
-                  <p>
-                    {activity.type === 'blog' && `New blog: ${activity.title}`}
-                    {activity.type === 'contact' && `New message from ${activity.name}`}
-                    {activity.type === 'donation' && `Donation of $${activity.amount} from ${activity.name}`}
-                  </p>
-                  <small>{new Date(activity.date).toLocaleDateString()}</small>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="admin-split-grid">
+        <section className="admin-card">
+          <h2 className="admin-card-title">Recent activity</h2>
 
-        <div className="dashboard-card quick-actions">
-          <h3>Quick Actions</h3>
-          <div className="quick-actions-grid">
-            <button onClick={() => window.location.href = '/admin/blogs/new'} className="quick-action-btn">
-              <FontAwesomeIcon icon={faBlog} /> Create Blog
+          {recentActivities.length === 0 ? (
+            <p className="admin-empty">Nothing here yet. New activity will appear here.</p>
+          ) : (
+            <div className="admin-activity-list">
+              {recentActivities.map((activity, i) => (
+                <div key={i} className="admin-activity-item">
+                  <div className={`admin-activity-icon ${activity.type}`}>
+                    {activity.type === 'blog' && <FontAwesomeIcon icon={faBlog} />}
+                    {activity.type === 'contact' && <FontAwesomeIcon icon={faEnvelope} />}
+                    {activity.type === 'donation' && <FontAwesomeIcon icon={faDollarSign} />}
+                  </div>
+                  <div className="admin-activity-text">
+                    <p>
+                      {activity.type === 'blog' && `New blog: ${activity.title}`}
+                      {activity.type === 'contact' && `New message from ${activity.name}`}
+                      {activity.type === 'donation' &&
+                        `Donation of $${activity.amount} from ${activity.name}`}
+                    </p>
+                    <small>{new Date(activity.date).toLocaleDateString()}</small>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="admin-card">
+          <h2 className="admin-card-title">Quick actions</h2>
+          <div className="admin-quick-grid">
+            <button
+              onClick={() => window.location.href = '/admin/blogs/new'}
+              className="admin-quick-btn"
+              type="button"
+            >
+              <FontAwesomeIcon icon={faBlog} /> Create blog
             </button>
-            <button onClick={() => window.location.href = '/admin/gallery/upload'} className="quick-action-btn">
-              <FontAwesomeIcon icon={faImage} /> Upload Image
+            <button
+              onClick={() => window.location.href = '/admin/gallery/upload'}
+              className="admin-quick-btn"
+              type="button"
+            >
+              <FontAwesomeIcon icon={faImage} /> Upload image
             </button>
-            <button onClick={() => window.location.href = '/admin/programs/new'} className="quick-action-btn">
-              <FontAwesomeIcon icon={faGraduationCap} /> Add Program
+            <button
+              onClick={() => window.location.href = '/admin/programs/new'}
+              className="admin-quick-btn"
+              type="button"
+            >
+              <FontAwesomeIcon icon={faGraduationCap} /> Add program
             </button>
-            <button onClick={() => window.location.href = '/admin/events/new'} className="quick-action-btn">
-              <FontAwesomeIcon icon={faCalendar} /> Create Event
+            <button
+              onClick={() => window.location.href = '/admin/events/new'}
+              className="admin-quick-btn"
+              type="button"
+            >
+              <FontAwesomeIcon icon={faCalendar} /> Create event
             </button>
           </div>
-        </div>
+        </section>
       </div>
 
       {showScrollTop && (
-        <button className="scroll-top" onClick={scrollToTop}>
+        <button
+          className="admin-scroll-top"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+          type="button"
+        >
           <FontAwesomeIcon icon={faArrowUp} />
         </button>
       )}
-
-      <style>{`
-        .admin-dashboard {
-          animation: fadeIn 0.5s ease;
-          padding: 20px;
-        }
-
-        .dashboard-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 30px;
-          flex-wrap: wrap;
-          gap: 15px;
-        }
-
-        .dashboard-header h1 {
-          font-size: 24px;
-          color: #1f2937;
-          margin-bottom: 5px;
-        }
-
-        .dashboard-header p {
-          color: #6b7280;
-        }
-
-        .dashboard-date {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
-          background: white;
-          border-radius: 8px;
-          color: #6b7280;
-          font-size: 14px;
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 20px;
-          margin-bottom: 30px;
-        }
-
-        .stat-card {
-          background: white;
-          border-radius: 12px;
-          padding: 20px;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          cursor: pointer;
-        }
-
-        .stat-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .stat-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-        }
-
-        .stat-info h3 {
-          font-size: 28px;
-          font-weight: 700;
-          color: #1f2937;
-          margin-bottom: 5px;
-        }
-
-        .stat-info p {
-          color: #6b7280;
-          font-size: 14px;
-        }
-
-        .stat-change {
-          font-size: 12px;
-          font-weight: 600;
-        }
-
-        .stat-change.positive { color: #22c55e; }
-        .stat-change.negative { color: #ef4444; }
-
-        .dashboard-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
-        }
-
-        .dashboard-card {
-          background: white;
-          border-radius: 12px;
-          padding: 20px;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-card h3 {
-          font-size: 18px;
-          color: #374151;
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 2px solid #f0fdf4;
-        }
-
-        .activity-list {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .activity-item {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 10px;
-          border-radius: 8px;
-          background: #f9fafb;
-          transition: background 0.3s ease;
-        }
-
-        .activity-item:hover {
-          background: #f0fdf4;
-        }
-
-        .activity-icon {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 18px;
-        }
-
-        .activity-icon.blog { background: #dbeafe; color: #3b82f6; }
-        .activity-icon.contact { background: #fee2e2; color: #ef4444; }
-        .activity-icon.donation { background: #d1fae5; color: #10b981; }
-
-        .activity-details p {
-          font-size: 14px;
-          color: #374151;
-          margin-bottom: 4px;
-        }
-
-        .activity-details small {
-          font-size: 11px;
-          color: #9ca3af;
-        }
-
-        .quick-actions-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-        }
-
-        .quick-action-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 12px;
-          background: #f3f4f6;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 14px;
-          font-weight: 500;
-        }
-
-        .quick-action-btn:hover {
-          background: #22c55e;
-          color: white;
-          transform: translateY(-2px);
-        }
-
-        .dashboard-loading {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 400px;
-          gap: 20px;
-          color: #22c55e;
-        }
-
-        .scroll-top {
-          position: fixed;
-          bottom: 30px;
-          right: 30px;
-          width: 45px;
-          height: 45px;
-          background: #22c55e;
-          border: none;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          z-index: 1000;
-          box-shadow: 0 4px 15px rgba(34,197,94,0.3);
-        }
-
-        .scroll-top:hover {
-          background: #16a34a;
-          transform: translateY(-3px);
-        }
-
-        @media (max-width: 1200px) {
-          .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 768px) {
-          .dashboard-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .stats-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .dashboard-header {
-            flex-direction: column;
-            text-align: center;
-          }
-          
-          .quick-actions-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 };

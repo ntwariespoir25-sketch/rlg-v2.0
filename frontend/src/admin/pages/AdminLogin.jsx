@@ -212,6 +212,7 @@ const AdminLogin = () => {
            ADMIN LOGIN — matches RLG public site design language
            ============================================================ */
         .admin-login-page {
+          --admin-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           --navy: #152B3A;
           --navy-deep: #0F212D;
           --green: #2F6B4F;
@@ -237,7 +238,7 @@ const AdminLogin = () => {
             linear-gradient(135deg, var(--navy-deep) 0%, var(--green-deep) 100%);
           position: relative;
           overflow: hidden;
-          font-family: 'Inter', system-ui, -apple-system, sans-serif;
+          font-family: var(--admin-font);
           color: var(--text);
         }
 
@@ -324,8 +325,8 @@ const AdminLogin = () => {
           background: var(--gold);
         }
         .admin-login-aside h1 {
-          font-family: 'Source Serif 4', Georgia, serif;
-          font-weight: 600;
+          font-family: var(--admin-font);
+          font-weight: 700;
           font-size: clamp(28px, 3vw, 38px);
           line-height: 1.15;
           letter-spacing: -0.02em;
@@ -406,8 +407,8 @@ const AdminLogin = () => {
           object-fit: contain;
         }
         .admin-login-header h2 {
-          font-family: 'Source Serif 4', Georgia, serif;
-          font-weight: 600;
+          font-family: var(--admin-font);
+          font-weight: 700;
           font-size: 26px;
           letter-spacing: -0.01em;
           color: var(--navy);
@@ -442,7 +443,7 @@ const AdminLogin = () => {
           border: 1.5px solid var(--line);
           border-radius: 10px;
           font-size: 14.5px;
-          font-family: 'Inter', sans-serif;
+          font-family: var(--admin-font);
           background: var(--paper);
           color: var(--navy);
           transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
@@ -485,7 +486,7 @@ const AdminLogin = () => {
           border-radius: 10px;
           font-size: 15.5px;
           font-weight: 700;
-          font-family: 'Inter', sans-serif;
+          font-family: var(--admin-font);
           letter-spacing: 0.01em;
           cursor: pointer;
           transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;

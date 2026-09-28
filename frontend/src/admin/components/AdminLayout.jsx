@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import AdminSidebar from './AdminSidebar';
 import AdminHeader from './AdminHeader';
 import { useAdmin } from '../contexts/AdminContext';
 import Swal from 'sweetalert2';
+import '../styles/adminTheme.css';
+
+const MOBILE_BREAKPOINT = 1024;
 
 const AdminLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => window.innerWidth < MOBILE_BREAKPOINT
+  );
   const { admin, logout, isAuthenticated } = useAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        setSidebarOpen(false);
-      }
+      const mobile = window.innerWidth < MOBILE_BREAKPOINT;
+      setIsMobile(mobile);
+      if (!mobile) setDrawerOpen(false);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -24,100 +29,73 @@ const AdminLayout = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/admin/login');
+      navigate('/admin/login', { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will be logged out of the admin panel.',
+      title: 'Log out?',
+      text: 'You will be returned to the admin login page.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#22c55e',
-      cancelButtonColor: '#ef4444',
-      confirmButtonText: 'Yes, logout',
-      cancelButtonText: 'Cancel'
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#0f5132',
+      confirmButtonText: 'Yes, log out',
+      cancelButtonText: 'Cancel',
     });
-    
+
     if (result.isConfirmed) {
       logout();
       Swal.fire({
         icon: 'success',
-        title: 'Logged Out',
+        title: 'Logged out',
         text: 'You have been successfully logged out.',
-        timer: 1500,
+        timer: 1400,
         showConfirmButton: false,
       });
-      navigate('/admin/login');
+      navigate('/admin/login', { replace: true });
     }
   };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  const toggleDrawer = useCallback(() => {
+    setDrawerOpen((open) => !open);
+  }, []);
 
-  const closeMobileSidebar = () => {
-    setSidebarOpen(false);
-  };
+  const closeDrawer = useCallback(() => {
+    setDrawerOpen(false);
+  }, []);
 
-  if (!admin) {
-    return null;
-  }
+  const toggleCollapse = useCallback(() => {
+    setCollapsed((value) => !value);
+  }, []);
+
+  if (!admin) return null;
 
   return (
-    <div className="admin-layout">
-      <AdminSidebar 
-        isOpen={sidebarOpen} 
+    <div
+      className={`admin-shell${collapsed && !isMobile ? ' sidebar-collapsed' : ''}`}
+    >
+      <AdminSidebar
+        isOpen={drawerOpen}
         isMobile={isMobile}
-        onToggle={toggleSidebar}
-        onMobileClose={closeMobileSidebar}
+        isCollapsed={collapsed}
+        onToggleCollapse={toggleCollapse}
+        onMobileClose={closeDrawer}
       />
-      <div className={`admin-main ${!isMobile ? 'desktop' : ''}`}>
-        <AdminHeader 
-          admin={admin} 
-          onMenuClick={toggleSidebar} 
+
+      <div className="admin-main">
+        <AdminHeader
+          admin={admin}
+          onMenuClick={toggleDrawer}
           onLogout={handleLogout}
           isMobile={isMobile}
         />
-        <div className="admin-content">
-          <Outlet />
-        </div>
-      </div>
 
-      <style>{`
-        .admin-layout {
-          display: flex;
-          min-height: 100vh;
-          background: #f3f4f6;
-        }
-        
-        .admin-main {
-          flex: 1;
-          margin-left: 260px;
-          transition: margin-left 0.3s ease;
-          width: calc(100% - 260px);
-        }
-        
-        .admin-main.desktop {
-          margin-left: 260px;
-        }
-        
-        .admin-content {
-          padding: 20px;
-        }
-        
-        @media (max-width: 768px) {
-          .admin-main.desktop {
-            margin-left: 0;
-            width: 100%;
-          }
-          
-          .admin-content {
-            padding: 15px;
-          }
-        }
-      `}</style>
+        <main className="admin-content">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

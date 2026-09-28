@@ -120,22 +120,28 @@ const GetInvolvedManagement = () => {
       </div>
 
       {stats && (
-        <div className="stats-cards">
-          <div className="stat-mini-card">
-            <h3>{stats.stats?.find(s => s._id === 'pending')?.count || 0}</h3>
-            <p>Pending</p>
+        <div className="admin-mini-grid">
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">
+              {stats.stats?.find(s => s._id === 'pending')?.count || 0}
+            </p>
+            <p className="admin-mini-label">Pending</p>
           </div>
-          <div className="stat-mini-card">
-            <h3>{stats.stats?.find(s => s._id === 'contacted')?.count || 0}</h3>
-            <p>Contacted</p>
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">
+              {stats.stats?.find(s => s._id === 'contacted')?.count || 0}
+            </p>
+            <p className="admin-mini-label">Contacted</p>
           </div>
-          <div className="stat-mini-card">
-            <h3>{stats.stats?.find(s => s._id === 'approved')?.count || 0}</h3>
-            <p>Approved</p>
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">
+              {stats.stats?.find(s => s._id === 'approved')?.count || 0}
+            </p>
+            <p className="admin-mini-label">Approved</p>
           </div>
-          <div className="stat-mini-card">
-            <h3>{submissions.length}</h3>
-            <p>Total</p>
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">{submissions.length}</p>
+            <p className="admin-mini-label">Total</p>
           </div>
         </div>
       )}
@@ -237,10 +243,6 @@ const GetInvolvedManagement = () => {
       )}
 
       <style>{`
-        .stats-cards { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
-        .stat-mini-card { background: white; border-radius: 12px; padding: 20px; flex: 1; min-width: 120px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .stat-mini-card h3 { font-size: 28px; color: #22c55e; margin-bottom: 5px; }
-        .stat-mini-card p { color: #6b7280; font-size: 14px; }
         .filters-bar { margin-bottom: 20px; }
         .status-filter { display: flex; align-items: center; gap: 10px; }
         .status-filter select { padding: 8px 15px; border: 1px solid #e5e7eb; border-radius: 8px; background: white; }
@@ -250,8 +252,7 @@ const GetInvolvedManagement = () => {
         .action-btn.reject { color: #ef4444; }
         .submission-details { padding: 20px; }
         .submission-details p { margin-bottom: 10px; }
-        .loading { display: flex; justify-content: center; align-items: center; height: 200px; gap: 10px; color: #22c55e; }
-        @media (max-width: 768px) { .stats-cards { flex-direction: column; } }
+        .loading { display: flex; justify-content: center; align-items: center; height: 200px; gap: 10px; color: #0f5132; }
       `}</style>
     </div>
   );

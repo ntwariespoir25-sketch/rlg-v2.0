@@ -105,14 +105,16 @@ const DonationsManagement = () => {
       </div>
 
       {stats && (
-        <div className="stats-cards">
-          <div className="stat-mini-card">
-            <h3>${stats.total?.total?.toLocaleString() || 0}</h3>
-            <p>Total Donations</p>
+        <div className="admin-mini-grid">
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">
+              ${stats.total?.total?.toLocaleString() || 0}
+            </p>
+            <p className="admin-mini-label">Total donations</p>
           </div>
-          <div className="stat-mini-card">
-            <h3>{stats.total?.count || 0}</h3>
-            <p>Number of Donations</p>
+          <div className="admin-mini-card">
+            <p className="admin-mini-value">{stats.total?.count || 0}</p>
+            <p className="admin-mini-label">Number of donations</p>
           </div>
         </div>
       )}
@@ -190,12 +192,8 @@ const DonationsManagement = () => {
       )}
 
       <style>{`
-        .stats-cards { display: flex; gap: 20px; margin-bottom: 20px; }
-        .stat-mini-card { background: white; border-radius: 12px; padding: 20px; flex: 1; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .stat-mini-card h3 { font-size: 28px; color: #22c55e; margin-bottom: 5px; }
-        .stat-mini-card p { color: #6b7280; font-size: 14px; }
-        .action-btn.approve { color: #10b981; }
-        .action-btn.reject { color: #ef4444; }
+        .action-btn.approve { color: #059669; }
+        .action-btn.reject { color: #dc2626; }
         .donation-details { padding: 20px; }
         .donation-details p { margin-bottom: 10px; }
       `}</style>

@@ -140,21 +140,6 @@ img {
 .btn-sm { padding: 0.45rem 1rem; font-size: 0.8rem; }
 .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
 
-/* ---------- Legacy Stat Card ---------- */
-.stat-card {
-  background: var(--rlg-white);
-  border: 1px solid var(--rlg-gray-200);
-  border-radius: var(--rlg-radius);
-  padding: 1.5rem;
-  cursor: pointer;
-  transition: var(--rlg-transition);
-}
-.stat-card:hover {
-  border-color: var(--rlg-green);
-  box-shadow: var(--rlg-shadow-green);
-  transform: translateY(-2px);
-}
-
 /* ============================================================
    RLG LAYOUT UTILITIES
    ============================================================ */
