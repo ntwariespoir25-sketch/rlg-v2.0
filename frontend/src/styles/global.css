@@ -1,0 +1,350 @@
+/* ============================================================
+   GLOBAL STYLES - Rising Leaders of Generation
+   Green professional theme
+   ============================================================ */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  --rlg-green:         #2f6b4f;   /* green — primary */
+  --rlg-green-dark:    #234f3b;   /* green-deep */
+  --rlg-green-deep:    #234f3b;   /* green-deep (darkest green) */
+  --rlg-green-bright:  #3f8c63;   /* green-bright */
+  --rlg-green-soft:    #8fc1a3;   /* green-light / sage */
+  --rlg-green-pale:    #b5d2bf;   /* sage-light */
+  --rlg-green-bg:      #f2eee4;   /* warm paper */
+  --rlg-green-soft-bg:#d8e6dc;   /* sage-pale */
+
+  --rlg-gray-50:  #f9fafb;
+  --rlg-gray-100: #f3f4f6;
+  --rlg-gray-200: #e5e7eb;
+  --rlg-gray-300: #d1d5db;
+  --rlg-gray-500: #6b7280;
+  --rlg-gray-700: #374151;
+  --rlg-gray-900: #111827;
+
+  --rlg-white: #ffffff;
+  --rlg-danger: #dc2626;
+  --rlg-danger-dark: #b91c1c;
+
+  --rlg-radius-sm: 0.5rem;
+  --rlg-radius:    0.75rem;
+  --rlg-radius-lg: 1rem;
+  --rlg-radius-pill: 999px;
+
+  --rlg-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --rlg-shadow:    0 4px 16px rgba(0, 0, 0, 0.06);
+  --rlg-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --rlg-shadow-green: 0 10px 24px rgba(22, 163, 74, 0.12);
+
+  --rlg-transition: all 0.25s ease;
+}
+
+/* ---------- Base Reset ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  background-color: var(--rlg-white);
+  color: var(--rlg-gray-700);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--rlg-gray-900);
+}
+
+a {
+  color: var(--rlg-green);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--rlg-green-dark);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--rlg-gray-100);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #22c55e, var(--rlg-green));
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rlg-green-dark);
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--rlg-green-pale);
+  color: var(--rlg-green-deep);
+}
+
+/* ============================================================
+   LEGACY BUTTONS (kept for admin & old components)
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--rlg-radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--rlg-transition);
+  font-family: inherit;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary   { background: var(--rlg-green); color: var(--rlg-white); }
+.btn-primary:hover { background: var(--rlg-green-dark); }
+
+.btn-secondary { background: var(--rlg-gray-200); color: var(--rlg-gray-700); }
+.btn-secondary:hover { background: var(--rlg-gray-300); }
+
+.btn-outline   { background: transparent; border: 1.5px solid var(--rlg-green); color: var(--rlg-green); }
+.btn-outline:hover { background: var(--rlg-green-bg); }
+
+.btn-success   { background: var(--rlg-green); color: var(--rlg-white); }
+
+.btn-danger    { background: var(--rlg-danger); color: var(--rlg-white); }
+.btn-danger:hover { background: var(--rlg-danger-dark); }
+
+.btn-sm { padding: 0.45rem 1rem; font-size: 0.8rem; }
+.btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
+
+/* ---------- Legacy Stat Card ---------- */
+.stat-card {
+  background: var(--rlg-white);
+  border: 1px solid var(--rlg-gray-200);
+  border-radius: var(--rlg-radius);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: var(--rlg-transition);
+}
+.stat-card:hover {
+  border-color: var(--rlg-green);
+  box-shadow: var(--rlg-shadow-green);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RLG LAYOUT UTILITIES
+   ============================================================ */
+.pt-nav { padding-top: 0; }
+
+.rlg-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.rlg-section {
+  padding: 4rem 0;
+}
+.rlg-section--gray       { background: var(--rlg-gray-50); }
+.rlg-section--green-soft { background: var(--rlg-green-bg); }
+
+/* ---------- Grid ---------- */
+.rlg-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.rlg-grid--2 { grid-template-columns: 1fr; }
+.rlg-grid--3 { grid-template-columns: 1fr; }
+.rlg-grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+/* ---------- Flex ---------- */
+.rlg-flex            { display: flex; align-items: center; }
+.rlg-flex--wrap      { flex-wrap: wrap; }
+.rlg-flex--between   { justify-content: space-between; }
+.rlg-flex--center    { justify-content: center; }
+.rlg-gap-1           { gap: 0.5rem; }
+.rlg-gap-2           { gap: 1rem; }
+
+/* ---------- Headings ---------- */
+.rlg-heading {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+.rlg-heading h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--rlg-green-deep);
+  margin-bottom: 0.6rem;
+}
+.rlg-heading p {
+  color: var(--rlg-gray-500);
+  line-height: 1.7;
+}
+
+.rlg-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rlg-green);
+  margin-bottom: 0.8rem;
+}
+
+/* ---------- Card ---------- */
+.rlg-card {
+  background: var(--rlg-white);
+  border-radius: var(--rlg-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--rlg-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.rlg-card--hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--rlg-shadow-lg);
+}
+
+/* ---------- Badge ---------- */
+.rlg-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--rlg-radius-pill);
+  background: var(--rlg-green-soft-bg);
+  color: #166534;
+}
+
+/* ============================================================
+   RLG BUTTONS
+   ============================================================ */
+.rlg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--rlg-radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--rlg-transition);
+  font-family: inherit;
+}
+
+.rlg-btn--primary {
+  background: var(--rlg-green);
+  color: var(--rlg-white);
+}
+.rlg-btn--primary:hover { background: var(--rlg-green-dark); }
+
+.rlg-btn--white {
+  background: var(--rlg-white);
+  color: var(--rlg-green);
+}
+.rlg-btn--white:hover { background: var(--rlg-green-bg); }
+
+.rlg-btn--ghost-white {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--rlg-white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.rlg-btn--ghost-white:hover { background: rgba(255, 255, 255, 0.2); }
+
+.rlg-btn--outline {
+  background: transparent;
+  color: var(--rlg-green);
+  border: 1.5px solid var(--rlg-green);
+}
+.rlg-btn--outline:hover {
+  background: var(--rlg-green);
+  color: var(--rlg-white);
+}
+
+/* ============================================================
+   RLG PLACEHOLDER (image coming soon)
+   ============================================================ */
+.rlg-ph {
+  background: linear-gradient(135deg, #166534, var(--rlg-green));
+  color: var(--rlg-white);
+  border-radius: var(--rlg-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.rlg-ph--hero { min-height: 320px; }
+.rlg-ph--card { min-height: 180px; margin-bottom: 1rem; }
+
+/* ---------- Text helpers ---------- */
+.rlg-text-center { text-align: center; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.rlg-fade-up    { animation: rlgFadeUp 0.6s ease both; }
+.rlg-fade-up--1 { animation: rlgFadeUp 0.7s ease both; }
+.rlg-fade-up--2 { animation: rlgFadeUp 0.8s ease both; }
+
+@keyframes rlgFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   LEGACY SPACING UTILITIES
+   ============================================================ */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 0.5rem; }
+.mr-2 { margin-right: 0.5rem; }
+.ml-2 { margin-left: 0.5rem; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (min-width: 768px) {
+  .rlg-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .rlg-grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .rlg-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .rlg-section { padding: 5rem 0; }
+}
+
+@media (min-width: 1024px) {
+  .rlg-container { padding: 0 2.5rem; }
+  .rlg-section   { padding: 6rem 0; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

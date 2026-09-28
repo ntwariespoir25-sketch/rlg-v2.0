@@ -1,0 +1,384 @@
+/* ============================================================
+   RLG PROFESSIONAL DESIGN SYSTEM
+   Simple, clean, professional. Green as the single accent color.
+   ============================================================ */
+
+:root {
+  /* Navy + Green + Gold editorial system (reference palette) */
+  --green-900: #0f212d;   /* navy-deep — darkest */
+  --green-800: #152b3a;   /* navy */
+  --green-700: #234f3b;   /* green-deep */
+  --green-600: #2f6b4f;   /* green — primary */
+  --green-500: #3f8c63;   /* green-bright */
+  --green-400: #4ca371;
+  --green-300: #8fc1a3;   /* green-light */
+  --green-200: #b5d2bf;
+  --green-100: #d8e6dc;
+  --green-50:  #eef3ec;
+
+  --ink-900: #152b3a;     /* navy (heading) */
+  --ink-700: #3a3f42;     /* text */
+  --ink-500: #6b7178;     /* text-soft */
+  --ink-400: #9aa1a6;
+  --ink-300: #c7cdc9;
+  --ink-200: #e4dfd3;     /* line — warm */
+  --ink-100: #f1ede3;     /* paper-dim */
+  --ink-50:  #faf8f4;     /* paper */
+
+  --white: #ffffff;
+
+  /* Semantic aliases so pages can use descriptive tokens too */
+  --navy: #152b3a;
+  --navy-deep: #0f212d;
+  --green: #2f6b4f;
+  --green-deep: #234f3b;
+  --green-light: #8fc1a3;
+  --green-bright: #3f8c63;
+  --gold: #f2c94c;
+  --gold-hover: #e0b63a;
+  --paper: #faf8f4;
+  --paper-dim: #f1ede3;
+  --line: #e4dfd3;
+  --text: #3a3f42;
+  --text-soft: #6b7178;
+
+  /* Typography */
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --shadow-sm: 0 1px 3px rgba(15, 33, 45, 0.08);
+  --shadow-md: 0 4px 14px rgba(15, 33, 45, 0.09);
+  --shadow-lg: 0 16px 40px rgba(15, 33, 45, 0.12);
+  --shadow-green: 0 4px 16px rgba(22, 37, 30, 0.18);
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/* ---------- Base ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink-700);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--ink-900);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* ---------- Typography helpers ---------- */
+.rlg-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-600);
+}
+
+.lead-subhead {
+  font-family: var(--font-sans);
+  color: var(--ink-500);
+  font-size: 1.1rem;
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+.pt-nav { padding-top: 76px; }
+
+/* ---------- Container ---------- */
+.rlg-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ---------- Page Hero ---------- */
+.rlg-page-hero {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%);
+  color: var(--white);
+  padding: 3.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.rlg-page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(74, 222, 128, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 40%);
+  pointer-events: none;
+}
+.rlg-page-hero .rlg-container { position: relative; z-index: 1; }
+.rlg-page-hero h1 {
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.rlg-page-hero p {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+  font-size: 1.05rem;
+}
+@media (min-width: 768px) {
+  .rlg-page-hero { padding: 4.5rem 0; }
+  .rlg-page-hero h1 { font-size: 2.5rem; }
+}
+
+/* ---------- Section heading ---------- */
+.rlg-section {
+  padding: 3.5rem 0;
+}
+.rlg-section--gray { background: var(--ink-50); }
+.rlg-section--green-soft { background: var(--green-50); }
+
+.rlg-heading { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; }
+.rlg-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-600);
+  margin-bottom: 0.5rem;
+}
+.rlg-heading h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+.rlg-heading p { color: var(--ink-500); font-size: 1rem; }
+.rlg-heading--left { text-align: left; margin: 0 0 2rem; }
+@media (min-width: 768px) {
+  .rlg-heading h2 { font-size: 2rem; }
+}
+
+/* ---------- Buttons ---------- */
+.rlg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+.rlg-btn--primary {
+  background: var(--green-600);
+  color: var(--white);
+}
+.rlg-btn--primary:hover {
+  background: var(--green-700);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-1px);
+}
+.rlg-btn--dark {
+  background: var(--green-900);
+  color: var(--white);
+}
+.rlg-btn--dark:hover {
+  background: var(--green-800);
+  transform: translateY(-1px);
+}
+.rlg-btn--outline {
+  background: transparent;
+  color: var(--green-700);
+  border: 1.5px solid var(--green-600);
+}
+.rlg-btn--outline:hover {
+  background: var(--green-50);
+}
+.rlg-btn--white {
+  background: var(--white);
+  color: var(--green-900);
+}
+.rlg-btn--white:hover {
+  background: var(--green-50);
+}
+.rlg-btn--ghost-white {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+.rlg-btn--ghost-white:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white);
+}
+.rlg-btn--block { width: 100%; }
+.rlg-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Cards ---------- */
+.rlg-card {
+  background: var(--white);
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+}
+.rlg-card--hover:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-300);
+  transform: translateY(-3px);
+}
+
+/* ---------- Image Placeholder ---------- */
+.rlg-ph {
+  background: linear-gradient(135deg, var(--green-100) 0%, var(--green-50) 100%);
+  border: 1px solid var(--green-200);
+  color: var(--green-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.rlg-ph svg {
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.55;
+}
+.rlg-ph--hero {
+  min-height: 320px;
+  border-radius: var(--radius-lg);
+}
+.rlg-ph--card {
+  height: 200px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin: -1.5rem -1.5rem 1.25rem;
+}
+@media (min-width: 768px) {
+  .rlg-ph--hero { min-height: 380px; }
+}
+
+/* ---------- Forms ---------- */
+.rlg-field { margin-bottom: 1.15rem; }
+.rlg-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-900);
+  margin-bottom: 0.4rem;
+}
+.rlg-field input,
+.rlg-field select,
+.rlg-field textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--ink-200);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--ink-900);
+  background: var(--white);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.rlg-field input:focus,
+.rlg-field select:focus,
+.rlg-field textarea:focus {
+  outline: none;
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+.rlg-field textarea { resize: vertical; min-height: 110px; }
+
+/* ---------- Grid utilities ---------- */
+.rlg-grid { display: grid; gap: 1.5rem; }
+.rlg-grid--2 { grid-template-columns: 1fr; }
+.rlg-grid--3 { grid-template-columns: 1fr; }
+.rlg-grid--4 { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+  .rlg-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .rlg-grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .rlg-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .rlg-grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.rlg-flex { display: flex; align-items: center; }
+.rlg-flex--between { justify-content: space-between; }
+.rlg-flex--center { justify-content: center; }
+.rlg-flex--wrap { flex-wrap: wrap; }
+.rlg-gap-1 { gap: 0.5rem; }
+.rlg-gap-2 { gap: 1rem; }
+.rlg-gap-3 { gap: 1.5rem; }
+.rlg-text-center { text-align: center; }
+
+/* ---------- Misc ---------- */
+.rlg-badge {
+  display: inline-block;
+  background: var(--green-100);
+  color: var(--green-800);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.rlg-divider {
+  height: 1px;
+  background: var(--ink-100);
+  margin: 1.5rem 0;
+}
+
+/* ---------- Reveal animation ---------- */
+@keyframes rlgFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.rlg-fade-up { animation: rlgFadeUp 0.6s ease both; }
+.rlg-fade-up--1 { animation: rlgFadeUp 0.6s 0.08s ease both; }
+.rlg-fade-up--2 { animation: rlgFadeUp 0.6s 0.16s ease both; }
+.rlg-fade-up--3 { animation: rlgFadeUp 0.6s 0.24s ease both; }
+
+/* ---------- Loading ---------- */
+.rlg-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem;
+  color: var(--ink-500);
+}
+.rlg-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--green-200);
+  border-top-color: var(--green-600);
+  border-radius: 50%;
+  animation: rlgSpin 0.8s linear infinite;
+}
+@keyframes rlgSpin { to { transform: rotate(360deg); } }
+
+/* ---------- Error / empty states ---------- */
+.rlg-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--ink-500);
+}
+.rlg-empty svg { font-size: 2.5rem; color: var(--green-400); margin-bottom: 0.75rem; }
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 640px) {
+  .rlg-container { padding: 0 1rem; }
+  .rlg-btn { width: 100%; }
+}
+
+.rlg-card--hover {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.rlg-card--hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(22,163,74,.12);
+}
