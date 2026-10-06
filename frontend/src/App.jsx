@@ -19,6 +19,7 @@ import Settings from "./admin/pages/Settings";
 // Public Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Public Pages
 import Home from "./pages/Home";
@@ -33,6 +34,7 @@ import Donate from "./pages/Donate";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <AdminProvider>
         <Routes>
           {/* ============================================
