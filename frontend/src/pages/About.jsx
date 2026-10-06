@@ -18,6 +18,7 @@ import programIcon2 from '../assets/program-icon-2.png';
 import programIcon3 from '../assets/program-icon-3.png';
 import reactSvg from '../assets/react.svg';
 import founder from '../assets/founder.png';
+import dave from '../assets/co-founder.png';
 
 export default function About() {
   return (
@@ -866,7 +867,7 @@ export default function About() {
 
       <div className="ab-founder-card">
         <div className="ab-founder-avatar">
-          <img src={founder} alt="David Mbaine" />
+          <img src={dave} alt="David Mbaine" />
         </div>
         <h3>David Mbaine</h3>
         <p className="role">Co-Founder</p>

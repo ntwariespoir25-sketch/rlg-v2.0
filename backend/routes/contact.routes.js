@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const {
   submitContact,
@@ -24,6 +24,7 @@ router.post('/', contactValidation, validate, submitContact);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('contacts'));
 
 router.get('/', getAllContacts);
 router.get('/stats', getContactStats);

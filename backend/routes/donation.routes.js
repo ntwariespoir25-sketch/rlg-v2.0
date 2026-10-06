@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const { donationLimiter } = require('../middleware/rateLimit.middleware');
 const {
@@ -28,6 +28,7 @@ router.get('/receipt/:id', getDonationReceipt);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('donations'));
 
 router.get('/', getAllDonations);
 router.get('/stats', getDonationStats);

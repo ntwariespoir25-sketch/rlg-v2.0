@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const {
   getAllPrograms,
@@ -21,6 +21,7 @@ router.get('/:id', getProgramById);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('programs'));
 
 const programValidation = [
   body('title').notEmpty().withMessage('Title is required'),

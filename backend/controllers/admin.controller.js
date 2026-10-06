@@ -5,7 +5,32 @@ const Donation = require('../models/Donation.model');
 const Contact = require('../models/Contact.model');
 const { ApiResponse } = require('../utils/apiResponse');
 const { generateToken } = require('../utils/generateToken');
+const { sectionsFor, canAccess } = require('../config/permissions');
 const bcrypt = require('bcryptjs');
+
+const VALID_ROLES = ['admin', 'super_admin', 'editor', 'moderator'];
+
+/**
+ * Shape the admin record sent to the client. Includes `sections` so the
+ * admin UI can hide nav items it must not use, instead of the frontend
+ * duplicating the permission matrix.
+ */
+const buildAdminPayload = (admin) => ({
+  _id: admin._id,
+  name: admin.name,
+  email: admin.email,
+  phone: admin.phone,
+  role: admin.role,
+  permissions: admin.permissions,
+  isActive: admin.isActive,
+  lastLogin: admin.lastLogin,
+  sections: sectionsFor(admin.role),
+  capabilities: {
+    canManageDonations: canAccess(admin.role, 'donations'),
+    canManageSettings: canAccess(admin.role, 'settings'),
+    canManageStaff: canAccess(admin.role, 'admins'),
+  },
+});
 
 // @desc    Get all admins
 // @route   GET /api/admin
@@ -41,6 +66,18 @@ const createAdmin = async (req, res) => {
   try {
     const { name, email, password, role, permissions } = req.body;
 
+    const assignedRole = role || 'admin';
+    if (!VALID_ROLES.includes(assignedRole)) {
+      return ApiResponse.badRequest(
+        res,
+        `Invalid role "${assignedRole}". Must be one of: ${VALID_ROLES.join(', ')}`
+      );
+    }
+    // Only a super_admin may mint another super_admin.
+    if (assignedRole === 'super_admin' && req.admin.role !== 'super_admin') {
+      return ApiResponse.forbidden(res, 'Only a super admin can assign the super admin role');
+    }
+
     const adminExists = await Admin.findOne({ email });
     if (adminExists) {
       return ApiResponse.badRequest(res, 'Admin already exists');
@@ -50,16 +87,11 @@ const createAdmin = async (req, res) => {
       name,
       email,
       password,
-      role,
+      role: assignedRole,
       permissions,
     });
 
-    return ApiResponse.created(res, {
-      _id: admin._id,
-      name: admin.name,
-      email: admin.email,
-      role: admin.role,
-    });
+    return ApiResponse.created(res, buildAdminPayload(admin));
   } catch (error) {
     return ApiResponse.error(res, error.message);
   }
@@ -78,13 +110,28 @@ const updateAdmin = async (req, res) => {
     const { name, email, role, permissions, phone } = req.body;
     if (name) admin.name = name;
     if (email) admin.email = email;
-    if (role) admin.role = role;
+    if (role) {
+      if (!VALID_ROLES.includes(role)) {
+        return ApiResponse.badRequest(
+          res,
+          `Invalid role "${role}". Must be one of: ${VALID_ROLES.join(', ')}`
+        );
+      }
+      // Only a super_admin may grant or revoke super_admin.
+      if (
+        (role === 'super_admin' || admin.role === 'super_admin') &&
+        req.admin.role !== 'super_admin'
+      ) {
+        return ApiResponse.forbidden(res, 'Only a super admin can change super admin accounts');
+      }
+      admin.role = role;
+    }
     if (permissions) admin.permissions = permissions;
     if (phone) admin.phone = phone;
 
     await admin.save();
 
-    return ApiResponse.success(res, admin, 'Admin updated successfully');
+    return ApiResponse.success(res, buildAdminPayload(admin), 'Admin updated successfully');
   } catch (error) {
     return ApiResponse.error(res, error.message);
   }
@@ -199,13 +246,7 @@ const adminLogin = async (req, res) => {
 
     return ApiResponse.success(res, {
       token,
-      admin: {
-        _id: admin._id,
-        name: admin.name,
-        email: admin.email,
-        role: admin.role,
-        permissions: admin.permissions,
-      },
+      admin: buildAdminPayload(admin),
     }, 'Login successful');
   } catch (error) {
     return ApiResponse.error(res, error.message);
@@ -221,7 +262,7 @@ const getAdminMe = async (req, res) => {
     if (!admin) {
       return ApiResponse.notFound(res, 'Admin not found');
     }
-    return ApiResponse.success(res, admin);
+    return ApiResponse.success(res, buildAdminPayload(admin));
   } catch (error) {
     return ApiResponse.error(res, error.message);
   }

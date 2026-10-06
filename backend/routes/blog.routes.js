@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, param, query } = require('express-validator');
 const router = express.Router();
-const { protect, adminProtect } = require('../middleware/auth.middleware');
+const { protect, adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const {
   getAllBlogs,
@@ -29,6 +29,7 @@ router.post('/:id/view', addView);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('blogs'));
 
 const blogValidation = [
   body('title').notEmpty().withMessage('Title is required'),

@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 const adminSeeder = require('./seeders/admin.seeder');
+const editorSeeder = require('./seeders/editor.seeder');
 
 const seedAdmin = async () => {
   try {
@@ -11,10 +12,14 @@ const seedAdmin = async () => {
     console.log('📦 Connected to MongoDB');
 
     await adminSeeder();
+    await editorSeeder();
 
     console.log('\n📋 Admin login:');
     console.log(`   Email: ${process.env.ADMIN_EMAIL || 'admin@rlg.org'}`);
     console.log('   Password: (see ADMIN_PASSWORD in backend/.env)');
+    console.log('\n📋 Editor login (content only, no donations/settings):');
+    console.log(`   Email: ${process.env.EDITOR_EMAIL || 'editor@rlg.org'}`);
+    console.log('   Password: (see EDITOR_PASSWORD in backend/.env)');
 
     await mongoose.disconnect();
     console.log('\n✅ Done!');

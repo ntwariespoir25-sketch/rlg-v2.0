@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
 const Admin = require('../models/Admin.model');
+const { SECTION_ROLES } = require('../config/permissions');
 
 // Protect routes for regular users
 const protect = async (req, res, next) => {
@@ -86,19 +87,33 @@ const adminProtect = async (req, res, next) => {
   }
 };
 
-// Authorize by roles
+// Authorize by explicit role list. Use authorizeFor(section) for
+// content/admin sections so the matrix in config/permissions.js stays
+// the single source of truth.
 const authorize = (...roles) => {
   return (req, res, next) => {
     // adminProtect sets req.admin, protect sets req.user
     const role = req.admin?.role || req.user?.role;
-    if (!roles.includes(role)) {
-      return res.status(403).json({ 
-        success: false, 
-        message: 'You do not have permission to perform this action' 
+
+    if (!role || !roles.includes(role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not have permission to perform this action',
+        requiredRoles: roles,
       });
     }
     next();
   };
 };
 
-module.exports = { protect, adminProtect, authorize };
+// Gate a route by section name using config/permissions.js
+const authorizeFor = (section) => {
+  const allowed = SECTION_ROLES[section];
+  if (!allowed) {
+    // Fail loudly at boot rather than silently locking a section down.
+    throw new Error(`authorizeFor: unknown section "${section}" in config/permissions.js`);
+  }
+  return authorize(...allowed);
+};
+
+module.exports = { protect, adminProtect, authorize, authorizeFor };

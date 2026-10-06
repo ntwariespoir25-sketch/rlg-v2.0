@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const {
   getAllTestimonials,
@@ -28,6 +28,7 @@ router.post('/', testimonialValidation, validate, createTestimonial);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('testimonials'));
 
 router.put('/:id', testimonialValidation, validate, updateTestimonial);
 router.delete('/:id', deleteTestimonial);

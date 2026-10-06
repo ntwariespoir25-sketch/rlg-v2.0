@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validation.middleware');
 const {
   submitGetInvolved,
@@ -24,6 +24,7 @@ router.post('/', submissionValidation, validate, submitGetInvolved);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('getinvolved'));
 
 router.get('/', getAllSubmissions);
 router.get('/stats', getSubmissionStats);

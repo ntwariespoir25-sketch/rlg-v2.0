@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const {
   getDashboardStats,
   getRecentActivity,
@@ -11,6 +11,7 @@ const {
 } = require('../controllers/dashboard.controller');
 
 router.use(adminProtect);
+router.use(authorizeFor('dashboard'));
 
 router.get('/stats', getDashboardStats);
 router.get('/recent-activity', getRecentActivity);

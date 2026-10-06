@@ -1,7 +1,7 @@
 {
   "name": "rlg-backend",
   "version": "1.0.0",
-  "description": "Rising Leaders of Generation - Backend API",
+  "description": "Raising Leaders of Generation - Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

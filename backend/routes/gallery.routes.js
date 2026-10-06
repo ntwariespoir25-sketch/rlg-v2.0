@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { adminProtect } = require('../middleware/auth.middleware');
+const { adminProtect, authorizeFor } = require('../middleware/auth.middleware');
 const { handleUpload } = require('../middleware/upload.middleware');
 const {
   getAllImages,
@@ -22,6 +22,7 @@ router.post('/:id/like', likeImage);
 
 // Admin only routes
 router.use(adminProtect);
+router.use(authorizeFor('gallery'));
 
 router.post('/', handleUpload('image', 1), uploadImage);
 router.put('/:id', updateImage);
