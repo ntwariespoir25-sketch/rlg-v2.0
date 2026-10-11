@@ -1132,7 +1132,7 @@ export default function Home() {
   <div className="hm-stats-grid">
     <div className="stat-item">
       <div className="hm-stat-number">
-        3<span className="plus">+</span>
+        5<span className="plus">+</span>
       </div>
       <div className="hm-stat-label">Years of Dedicated Leadership</div>
     </div>
