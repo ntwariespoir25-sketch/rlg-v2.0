@@ -681,7 +681,7 @@ export default function Programs() {
                       <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
                     </svg>
                   </div>
-                  <div className="num">5,000<span className="plus">+</span></div>
+                  <div className="num">1,000<span className="plus">+</span></div>
                   <div className="lbl">Students Reached Annually</div>
                 </div>
 
@@ -702,7 +702,7 @@ export default function Programs() {
                       <path d="M22 4L12 14.01l-3-3" />
                     </svg>
                   </div>
-                  <div className="num">45<span className="plus">+</span></div>
+                  <div className="num">15<span className="plus">+</span></div>
                   <div className="lbl">Competitions Hosted</div>
                 </div>
 
@@ -713,7 +713,7 @@ export default function Programs() {
                       <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
                     </svg>
                   </div>
-                  <div className="num">300<span className="plus">+</span></div>
+                  <div className="num">200<span className="plus">+</span></div>
                   <div className="lbl">Trained Volunteers</div>
                 </div>
               </div>

@@ -680,7 +680,7 @@ export default function About() {
               {/* Background image applied here */}
               <div className="ab-story-image">
                 <div className="ab-story-badge">
-                  <span className="num">2025</span>
+                  <span className="num">2024</span>
                   <span className="lbl">Founded</span>
                 </div>
               </div>
@@ -690,7 +690,7 @@ export default function About() {
                 <h2>A movement for the next generation.</h2>
 
                 <p>
-                  Founded in <strong>2025</strong> by Joshua Chriss Kwikiriza and David Mbaine,
+                  Founded in <strong>2024</strong> by Joshua Chriss Kwikiriza and David Mbaine,
                   our organization was born from a simple but urgent conviction: young people
                   are not future leaders — they are leaders today, waiting to be awakened.
                 </p>
@@ -743,11 +743,11 @@ export default function About() {
 
             <div className="ab-stats-grid">
               <div className="ab-stat-card">
-                <div className="num">50<span className="plus">+</span></div>
+                <div className="num">1000<span className="plus">+</span></div>
                 <div className="lbl">Active Members</div>
               </div>
               <div className="ab-stat-card">
-                <div className="num">10<span className="plus">+</span></div>
+                <div className="num">200<span className="plus">+</span></div>
                 <div className="lbl">Dedicated Volunteers</div>
               </div>
               <div className="ab-stat-card">

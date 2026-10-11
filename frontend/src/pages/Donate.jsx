@@ -1272,12 +1272,12 @@ export default function Donate() {
 
             <aside className="dn-hero-card">
               <div className="label">Your Impact at a Glance</div>
-              <div className="big-num">89<span className="plus">¢</span></div>
+              <div className="big-num">RLG<span className="plus">    RWANDA</span></div>
               <div className="big-desc">of every dollar goes directly to programs</div>
 
               <div className="dn-hero-card-stats">
                 <div className="dn-hero-card-stat">
-                  <div className="num">5,000<span className="plus">+</span></div>
+                  <div className="num">1,000<span className="plus">+</span></div>
                   <div className="lbl">Students Reached</div>
                 </div>
                 <div className="dn-hero-card-stat">
@@ -1414,7 +1414,7 @@ export default function Donate() {
                 <div className="lbl">Program Allocation</div>
               </div>
               <div className="dn-trust-stat">
-                <div className="num">5,000<span className="plus">+</span></div>
+                <div className="num">1,000<span className="plus">+</span></div>
                 <div className="lbl">Lives Impacted</div>
               </div>
               <div className="dn-trust-stat">

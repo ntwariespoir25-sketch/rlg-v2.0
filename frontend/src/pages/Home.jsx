@@ -1167,7 +1167,7 @@ export default function Home() {
 />
                 </div>
                 <div className="hm-about-badge">
-                  <span className="num">2+</span>
+                  <span className="num">3+</span>
                   <span className="lbl">Years of Service</span>
                 </div>
               </div>
@@ -1319,7 +1319,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="num">
-                  50<span className="plus">+</span>
+                  200<span className="plus">+</span>
                 </div>
                 <div className="lbl">Active Volunteers</div>
               </div>
